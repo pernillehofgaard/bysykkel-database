@@ -6,25 +6,37 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class regLåsVindu extends JFrame implements ActionListener {
 
     Kontroll k = Kontroll.getInstance();
-
     JLabel lbl_stativID, lbl_laasnr;
-    JTextField ent_stativID, ent_laasnr;
+    JComboBox stativIDcombo;
     JButton lagre, tilbake;
+
+    PreparedStatement stm;
+    ResultSet result;
+    Connection conn;
+
+    String[] message ={"hei", "på", "deg"};
 
     public regLåsVindu(){
         setTitle("Registrer ny lås");
-        setLayout(new GridLayout(3,3));
+        setLayout(new GridLayout(5,2));
 
         lbl_stativID = new JLabel("Hvilket stativ skal låsen være på?");
         add(lbl_stativID);
-        ent_laasnr = new JTextField();
-        add(ent_laasnr);
 
-        lbl_laasnr = new JLabel("låsnr genereres automatisk");
+        stativIDcombo = new JComboBox();
+        fillCombo();
+        add(stativIDcombo);
+
+
+        lbl_laasnr = new JLabel("Låsnr genereres automatisk");
         add(lbl_laasnr);
 
         lagre = new JButton("lagre");
@@ -38,10 +50,21 @@ public class regLåsVindu extends JFrame implements ActionListener {
 
     public boolean visVindu(){
         setVisible(true);
-        setSize(500,400);
+        setSize(300,300);
         setLocation(500,700);
-        pack();
         return true;
+    }
+
+    public void fillCombo(){
+        try{
+            result = k.visAlleSykkelstativer();
+            while(result.next()){
+                String stativID = result.getString("StativID");
+                stativIDcombo.addItem(stativID);
+            }
+        }catch (Exception e){
+            e.getMessage();
+        }
     }
 
 
@@ -50,16 +73,19 @@ public class regLåsVindu extends JFrame implements ActionListener {
         if(e.getSource() == tilbake){
             setVisible(false);
         }else{
-
             int låsnr = k.genererLåsnr();
-            int stativID = Integer.parseInt(ent_stativID.getText());
 
-            if(!k.finnsykkelstativ(stativID)){
-                JOptionPane.showMessageDialog(null,"Stativ finnes ikke");
-            }else{
-                k.registrerNyLås(låsnr, stativID);
-            }
+
+            k.registrerNyLås((String) stativIDcombo.getSelectedItem(), låsnr);
+
+
+
+
+
+
 
         }
+
     }
 }
+

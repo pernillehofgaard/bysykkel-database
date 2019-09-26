@@ -4,7 +4,7 @@ import com.company.vinduer.Hovedvindu;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Hovedvindu vindu = new Hovedvindu();
         vindu.setVisible(true);
         vindu.pack();

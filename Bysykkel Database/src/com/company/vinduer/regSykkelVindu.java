@@ -7,7 +7,8 @@ import java.awt.event.ActionListener;
 
 public class regSykkelVindu extends JDialog implements ActionListener {
     private JLabel velkommen, dato, stativID, låsnr;
-    private JTextField ent_dato, ent_stativ, ent_lås;
+    private JTextField ent_dato;
+    private JComboBox comboStativID, comboLåsnr;
     private JButton lagre, tilbake;
     private boolean ok = true;
 
@@ -22,13 +23,13 @@ public class regSykkelVindu extends JDialog implements ActionListener {
 
         stativID = new JLabel("StativID sykkelen skal stå i: ");
         add(stativID);
-        ent_stativ = new JTextField(6);
-        add(ent_stativ);
+        comboStativID = new JComboBox();
+        add(comboStativID);
 
         låsnr = new JLabel("Låsnummer til sykkelen: ");
         add(låsnr);
-        ent_lås = new JTextField(6);
-        add(ent_lås);
+        comboLåsnr = new JComboBox();
+        add(comboLåsnr);
 
         lagre = new JButton("Lagre");
         add(lagre);

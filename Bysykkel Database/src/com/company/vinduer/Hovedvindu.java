@@ -17,7 +17,7 @@ public class Hovedvindu extends JFrame implements ActionListener {
     visFulleStativer visStativer = new visFulleStativer();
 
 
-    public Hovedvindu(){
+    public Hovedvindu() throws Exception {
         setTitle("Bysykkel administrasjon");
         setLayout(new GridLayout(12,2));
         setSize(400,400);

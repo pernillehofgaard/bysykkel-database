@@ -17,7 +17,7 @@ public class regVindu extends JDialog implements ActionListener {
     regSykkelstativ regStativ = new regSykkelstativ();
     regLåsVindu registrerLås = new regLåsVindu();
 
-    public regVindu(){
+    public regVindu() throws Exception {
         hva = new JLabel("Hva vil du registrere");
         add(hva);
 
